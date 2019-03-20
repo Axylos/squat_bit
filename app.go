@@ -26,6 +26,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
       panic(err)
     }
 
+    f.WriteString("\n")
+
     w.WriteHeader(http.StatusNotFound)
     w.Write([]byte("404 - Not Found"))
   }
