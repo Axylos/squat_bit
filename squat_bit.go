@@ -5,6 +5,7 @@ import(
   "net/http"
   "log"
   "github.com/axylos/squat_bit/db"
+  _ "github.com/joho/godotenv/autoload"
 )
 
 var conn *db.SquatConn

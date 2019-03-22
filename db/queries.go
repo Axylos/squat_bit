@@ -7,6 +7,7 @@ import (
   "database/sql"
   "net/http/httputil"
   _ "github.com/lib/pq"
+  "os"
 )
 
 func (conn *SquatConn) SaveReq(req *http.Request) (int64, error) {
@@ -50,7 +51,8 @@ type SquatConn struct {
 }
 
 func GetConn() *SquatConn {
-  connStr := "user=wagnerizing dbname=squat_db sslmode=disable"
+  connStr := fmt.Sprintf(os.Getenv("DB_URL"))
+  fmt.Println(connStr)
   db, err := sql.Open("postgres", connStr)
 
   if err != nil {
