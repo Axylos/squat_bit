@@ -1,5 +1,6 @@
 package db
 
+
 import (
   "fmt"
   "log"
@@ -28,7 +29,7 @@ func (conn *SquatConn) SaveReq(req *http.Request) (int64, error) {
   _, stmtErr := stmt.Exec(
     req.URL.String(),
     req.Host,
-    req.RemoteAddr,
+    req.Header["Real-Ip"],
     req.Proto,
     req.Method,
     req.RequestURI,
@@ -53,6 +54,7 @@ type SquatConn struct {
 func GetConn() *SquatConn {
   connStr := fmt.Sprintf(os.Getenv("DB_URL"))
   fmt.Println(connStr)
+  fmt.Println("called")
   db, err := sql.Open("postgres", connStr)
 
   if err != nil {
