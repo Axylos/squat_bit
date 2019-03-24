@@ -31,7 +31,7 @@ func (conn *SquatConn) SaveReq(req *http.Request) (int64, error) {
     req.URL.String(),
     req.Host,
     strings.Join(req.Header["X-Real-Ip"], ""),
-    req.Proto,
+    strings.Join(req.Header["X-Forwarded-Proto"], ""),
     req.Method,
     req.RequestURI,
     req.ContentLength,
