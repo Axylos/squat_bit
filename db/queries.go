@@ -8,6 +8,7 @@ import (
   "database/sql"
   "net/http/httputil"
   _ "github.com/lib/pq"
+  "strings"
   "os"
 )
 
@@ -29,7 +30,7 @@ func (conn *SquatConn) SaveReq(req *http.Request) (int64, error) {
   _, stmtErr := stmt.Exec(
     req.URL.String(),
     req.Host,
-    req.Header["Real-Ip"],
+    strings.Join(req.Header["X-Real-Ip"], ""),
     req.Proto,
     req.Method,
     req.RequestURI,
@@ -38,7 +39,7 @@ func (conn *SquatConn) SaveReq(req *http.Request) (int64, error) {
   )
 
   if stmtErr != nil {
-    log.Fatal(err)
+    log.Fatal("oops", stmtErr)
     return 0, err
   }
 
